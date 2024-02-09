@@ -30,6 +30,8 @@
     gap: 10px;
 }
 
+
+
 .footer button {
     outline: none;
     border: none;
@@ -42,12 +44,6 @@
     width: 100%;
     transition: 100ms;
     cursor: pointer;
-}
-
-.footer button:disabled {
-    background-color: grey;
-    /* color: #fff; */
-    cursor: not-allowed;
 }
 
 .footer button:hover {
@@ -72,4 +68,10 @@
     color: #ff3300;
     font-size: 0.8rem;
     font-weight: 700;
+}
+
+.footer button:disabled {
+    background-color: #e6ccff;
+    /* color: #fff; */
+    cursor: not-allowed;
 }

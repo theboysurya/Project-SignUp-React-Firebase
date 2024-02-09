@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import styles from './Signup.module.css';
 import InputControl from '../InputControl/InputControl'
 import { Link } from 'react-router-dom'
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from "../../firebase";
 
 function Signup() {
@@ -12,7 +12,7 @@ function Signup() {
         password: "",
     })
 
-    const [passErrorMsg, setPassErrorMsg] = useState("");
+    // const [passErrorMsg, setPassErrorMsg] = useState("");
 
     const [errorMsg, setErrorMsg] = useState("");
 
@@ -27,13 +27,18 @@ function Signup() {
         setSubmitButtonDisabled(true);
         createUserWithEmailAndPassword(auth, values.email, values.password).then(res => {
             setSubmitButtonDisabled(false);
+            const user = res.user;
+            updateProfile(user, {
+                displayName: values.name,
+            })
             console.log(res);
         }).catch(error => {
             setSubmitButtonDisabled(false);
-            console.log("Error: ", error.message)
-            var errorCode = error.message;
-            setPassErrorMsg(`${errorCode}`);
+            // console.log("Error: ", error.message)
+            // var errorCode = error.message;
+            setErrorMsg(error.message);
         })
+        // setPassErrorMsg("");
     }
   return (
     <div className={styles.container}>
@@ -54,7 +59,7 @@ function Signup() {
                 setValues((prev) => ({...prev,password: event.target.value}))
             }
             />
-            <b className={styles.error}>{passErrorMsg}</b>
+            {/* <b className={styles.error}>{passErrorMsg}</b> */}
 
             <div className={styles.footer}>
                 <b className={styles.error}>{errorMsg}</b>
