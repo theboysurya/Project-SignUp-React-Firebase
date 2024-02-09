@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import styles from './Signup.module.css';
 import InputControl from '../InputControl/InputControl'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from "../../firebase";
 
@@ -18,6 +18,8 @@ function Signup() {
 
     const [submitButtonDisabled, setSubmitButtonDisabled] = useState(false);
 
+    const navigate = useNavigate();
+
     const handleSubmission = () => {
         if (!values.name || !values.email || !values.password) {
             setErrorMsg("Please fill all the fields");
@@ -25,13 +27,15 @@ function Signup() {
         }
         setErrorMsg("");
         setSubmitButtonDisabled(true);
-        createUserWithEmailAndPassword(auth, values.email, values.password).then(res => {
+        createUserWithEmailAndPassword(auth, values.email, values.password)
+        .then(async(res) => {
             setSubmitButtonDisabled(false);
             const user = res.user;
-            updateProfile(user, {
+            await updateProfile(user, {
                 displayName: values.name,
             })
             console.log(res);
+            navigate("/");
         }).catch(error => {
             setSubmitButtonDisabled(false);
             // console.log("Error: ", error.message)
