@@ -8,7 +8,6 @@ function Home(props) {
             <h1>
             <Link to="/signup">Signup</Link>
             </h1>
-            <br/>
             <h1>
             <Link to="/login">Login</Link>
             </h1>

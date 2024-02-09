@@ -51,7 +51,7 @@ function Login() {
             <InputControl label="Password" placeholder="Enter password" onChange={event => setValues(prev => ({...prev,password:event.target.value }))}/>
 
             <div className={styles.footer}>
-                <b className='{styles.error}'>{errorMsg}</b>
+                <b className={styles.error}>{errorMsg}</b>
                 <button disabled={submitButtonDisabled} onClick={handleSubmission}>Login</button>
                 <p>
                     New here?{" "}
